@@ -5,32 +5,170 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Question 1</title>
+
+  <!-- Optional nicer font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: Arial, sans-serif; display:flex; min-height:100vh; align-items:center; justify-content:center; background:#fff7fb; }
-    .card { background:white; padding:28px; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,.08); width:min(520px, 92vw); text-align:center; }
-    h1 { margin:0 0 10px; font-size:22px; }
-    p { margin:0 0 18px; color:#444; }
-    .buttons { position:relative; height:56px; display:flex; gap:12px; justify-content:center; align-items:center; }
-    button { border:0; padding:12px 18px; border-radius:12px; font-size:16px; cursor:pointer; }
-    #yesBtn { background:#ff3b7a; color:white; }
-    #noBtn { background:#eee; }
-    .toast { margin-top:14px; color:#c4002b; min-height:22px; font-weight:600; }
-    a { color:#ff3b7a; text-decoration:none; font-weight:700; }
+    /* Background + floating hearts */
+    body {
+      font-family: "Quicksand", Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255,59,122,.15), transparent 35%),
+        radial-gradient(circle at 90% 20%, rgba(47,125,255,.12), transparent 40%),
+        radial-gradient(circle at 40% 90%, rgba(255,200,230,.35), transparent 45%),
+        #fff7fb;
+      overflow: hidden;
+    }
+
+    /* Cute floating hearts (decor) */
+    .heart {
+      position: fixed;
+      bottom: -40px;
+      font-size: 18px;
+      opacity: 0.18;
+      animation: floatUp linear infinite;
+      user-select: none;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(0) translateX(0) rotate(0deg); }
+      to   { transform: translateY(-120vh) translateX(60px) rotate(25deg); }
+    }
+
+    .card {
+      position: relative;
+      width: min(560px, 92vw);
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.7);
+      padding: 28px;
+      border-radius: 22px;
+      box-shadow: 0 18px 45px rgba(0,0,0,.10);
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,59,122,.12);
+      color: #b3003a;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: .2px;
+    }
+
+    h1 {
+      margin: 6px 0 10px;
+      font-size: 22px;
+      line-height: 1.25;
+      color: #1a1a1a;
+    }
+
+    p {
+      margin: 0 0 16px;
+      color: #444;
+      font-weight: 500;
+    }
+
+    /* This is the KEY: buttons only move inside this box */
+    .playground {
+      position: relative;
+      width: 300px;
+      height: 92px;          /* fixed height = prevents overlap with text below */
+      margin: 14px auto 8px; /* space around it */
+    }
+
+    button {
+      border: 0;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform .08s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,.10);
+    }
+
+    button:active { transform: scale(0.98); }
+
+    #yesBtn {
+      position: absolute;
+      left: 50%;
+      top: 12px;
+      transform: translateX(-110%);
+      background: #ff3b7a;
+      color: white;
+    }
+
+    #noBtn {
+      position: absolute;     /* ALWAYS absolute, so it stays inside playground */
+      left: 50%;
+      top: 12px;
+      transform: translateX(10%);
+      background: #f1f1f1;
+      color: #222;
+    }
+
+    .toast {
+      margin-top: 10px;       /* text is outside playground, so no overlap */
+      min-height: 24px;
+      color: #c4002b;
+      font-weight: 800;
+    }
+
+    #next {
+      display: none;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(0,0,0,.12);
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 6px;
+      color: #ff3b7a;
+      text-decoration: none;
+      font-weight: 800;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255,59,122,.10);
+    }
+    a:hover { background: rgba(255,59,122,.16); }
   </style>
 </head>
+
 <body>
+  <!-- decorative hearts -->
+  <div class="heart" style="left: 8%; animation-duration: 10s;">💗</div>
+  <div class="heart" style="left: 22%; animation-duration: 12s;">💖</div>
+  <div class="heart" style="left: 55%; animation-duration: 11s;">💘</div>
+  <div class="heart" style="left: 78%; animation-duration: 13s;">💞</div>
+  <div class="heart" style="left: 90%; animation-duration: 9s;">💓</div>
+
   <div class="card">
+    <div class="badge">Tiny love quiz 💘</div>
+
     <h1>Do you think you are the most beautiful girl in the world?</h1>
     <p>Choose wisely 😌</p>
 
-    <div class="buttons">
+    <!-- The "playground" is where the No button is allowed to move -->
+    <div class="playground" id="playground">
       <button id="yesBtn">Yes</button>
       <button id="noBtn">No</button>
     </div>
 
     <div class="toast" id="toast"></div>
-    <div id="next" style="display:none; margin-top:16px;">
-      <p style="color:#222; font-weight:700; margin-bottom:10px;">Beauty and brains! 💖</p>
+
+    <div id="next">
+      <p style="margin: 0; font-weight: 800; color:#1a1a1a;">Beauty and brains! 💖</p>
       <a href="valentine.html">Go to the next question →</a>
     </div>
   </div>
@@ -41,6 +179,7 @@
     const noBtn = document.getElementById("noBtn");
     const toast = document.getElementById("toast");
     const next = document.getElementById("next");
+    const playground = document.getElementById("playground");
 
     // When she clicks YES: show message + link to page 2
     yesBtn.addEventListener("click", () => {
@@ -48,18 +187,30 @@
       next.style.display = "block";
     });
 
-    // When she clicks NO: show "wrong answer" and make the NO button jump around
+    // When she clicks NO: show message and move the NO button INSIDE the playground
     noBtn.addEventListener("click", () => {
       toast.textContent = "Wrong answer 😄 Try again.";
-      // Make it "pop/move" by switching the button to absolute positioning
-      noBtn.style.position = "absolute";
 
-      // Random position inside the card area (roughly)
-      const x = Math.floor(Math.random() * 220) - 110; // -110..110
-      const y = Math.floor(Math.random() * 90) - 45;   // -45..45
+      // Get the usable area size (so we never overlap text outside this box)
+      const box = playground.getBoundingClientRect();
 
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      // Button size
+      const btnW = noBtn.offsetWidth;
+      const btnH = noBtn.offsetHeight;
+
+      // Random left/top that always stays inside the box
+      const maxLeft = box.width - btnW;
+      const maxTop = box.height - btnH;
+
+      const left = Math.floor(Math.random() * Math.max(1, maxLeft));
+      const top = Math.floor(Math.random() * Math.max(1, maxTop));
+
+      // Apply position within playground
+      noBtn.style.left = left + "px";
+      noBtn.style.top = top + "px";
+      noBtn.style.transform = "none"; // remove translate so left/top works cleanly
     });
   </script>
 </body>
 </html>
+
