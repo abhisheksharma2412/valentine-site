@@ -1,0 +1,65 @@
+<!-- file: index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Question 1</title>
+  <style>
+    body { font-family: Arial, sans-serif; display:flex; min-height:100vh; align-items:center; justify-content:center; background:#fff7fb; }
+    .card { background:white; padding:28px; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,.08); width:min(520px, 92vw); text-align:center; }
+    h1 { margin:0 0 10px; font-size:22px; }
+    p { margin:0 0 18px; color:#444; }
+    .buttons { position:relative; height:56px; display:flex; gap:12px; justify-content:center; align-items:center; }
+    button { border:0; padding:12px 18px; border-radius:12px; font-size:16px; cursor:pointer; }
+    #yesBtn { background:#ff3b7a; color:white; }
+    #noBtn { background:#eee; }
+    .toast { margin-top:14px; color:#c4002b; min-height:22px; font-weight:600; }
+    a { color:#ff3b7a; text-decoration:none; font-weight:700; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Do you think you are the most beautiful girl in the world?</h1>
+    <p>Choose wisely 😌</p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <div id="next" style="display:none; margin-top:16px;">
+      <p style="color:#222; font-weight:700; margin-bottom:10px;">Beauty and brains! 💖</p>
+      <a href="valentine.html">Go to the next question →</a>
+    </div>
+  </div>
+
+  <script>
+    // Grab elements from the page
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const toast = document.getElementById("toast");
+    const next = document.getElementById("next");
+
+    // When she clicks YES: show message + link to page 2
+    yesBtn.addEventListener("click", () => {
+      toast.textContent = "";
+      next.style.display = "block";
+    });
+
+    // When she clicks NO: show "wrong answer" and make the NO button jump around
+    noBtn.addEventListener("click", () => {
+      toast.textContent = "Wrong answer 😄 Try again.";
+      // Make it "pop/move" by switching the button to absolute positioning
+      noBtn.style.position = "absolute";
+
+      // Random position inside the card area (roughly)
+      const x = Math.floor(Math.random() * 220) - 110; // -110..110
+      const y = Math.floor(Math.random() * 90) - 45;   // -45..45
+
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  </script>
+</body>
+</html>
