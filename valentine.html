@@ -11,141 +11,100 @@
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      font-family: "Quicksand", Arial, sans-serif;
-      min-height: 100vh;
-      margin: 0;
-      display: grid;
-      place-items: center;
+    body{
+      font-family:"Quicksand", Arial, sans-serif;
+      min-height:100vh; margin:0;
+      display:grid; place-items:center;
       background:
-        radial-gradient(circle at 15% 15%, rgba(47,125,255,.18), transparent 38%),
-        radial-gradient(circle at 85% 25%, rgba(255,59,122,.18), transparent 38%),
-        radial-gradient(circle at 45% 90%, rgba(255,220,235,.45), transparent 48%),
+        radial-gradient(circle at 15% 15%, rgba(47,125,255,.18), transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(255,59,122,.18), transparent 40%),
+        radial-gradient(circle at 45% 90%, rgba(255,220,235,.48), transparent 48%),
         #f7fbff;
-      overflow: hidden;
+      overflow:hidden;
     }
 
-    .confetti {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .25;
+    .sparkle{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.22;
       background-image:
-        radial-gradient(circle, rgba(255,59,122,.8) 2px, transparent 3px),
-        radial-gradient(circle, rgba(47,125,255,.8) 2px, transparent 3px),
-        radial-gradient(circle, rgba(255,180,0,.8) 2px, transparent 3px);
-      background-size: 140px 140px, 180px 180px, 220px 220px;
+        radial-gradient(circle, rgba(255,59,122,.85) 2px, transparent 3px),
+        radial-gradient(circle, rgba(47,125,255,.85) 2px, transparent 3px),
+        radial-gradient(circle, rgba(255,180,0,.85) 2px, transparent 3px);
+      background-size: 140px 140px, 190px 190px, 240px 240px;
       animation: drift 10s linear infinite;
     }
-    @keyframes drift {
-      from { transform: translateY(0); }
-      to   { transform: translateY(60px); }
+    @keyframes drift{
+      from{ transform: translateY(0); }
+      to{ transform: translateY(70px); }
     }
 
-    .card {
-      width: min(560px, 92vw);
+    .card{
+      width:min(680px, 92vw);
       background: rgba(255,255,255,.88);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,.7);
-      padding: 28px;
-      border-radius: 22px;
-      box-shadow: 0 18px 45px rgba(0,0,0,.10);
-      text-align: center;
-      position: relative;
+      border:1px solid rgba(255,255,255,.75);
+      padding: 34px 28px;
+      border-radius: 26px;
+      box-shadow: 0 22px 55px rgba(0,0,0,.12);
+      text-align:center;
     }
 
-    .badge {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
       background: rgba(47,125,255,.12);
-      color: #0b3d91;
-      font-weight: 700;
-      margin-bottom: 12px;
+      color:#0b3d91;
+      font-weight:900;
+      margin-bottom:14px;
     }
 
-    h1 { margin: 6px 0 10px; font-size: 24px; color:#1a1a1a; }
-    p { margin: 0 0 16px; color:#444; }
+    h1{
+      margin:8px 0 10px;
+      font-size:30px;
+      color:#1a1a1a;
+    }
 
-    .row { display:flex; gap:12px; justify-content:center; margin-top: 10px; flex-wrap:wrap; }
+    .sub{
+      margin:0 0 18px;
+      color:#444;
+      font-size:18px;
+      font-weight:700;
+    }
 
-    button {
-      border: 0;
-      padding: 12px 18px;
-      border-radius: 14px;
-      font-size: 16px;
-      cursor: pointer;
-      font-weight: 700;
-      box-shadow: 0 10px 20px rgba(0,0,0,.10);
+    .row{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top: 8px;
+    }
+
+    button{
+      border:0;
+      border-radius:16px;
+      font-weight:900;
+      cursor:pointer;
+      box-shadow: 0 12px 22px rgba(0,0,0,.12);
       transition: transform .08s ease, filter .15s ease;
+      padding: 14px 26px;
+      font-size:18px;
     }
-    button:hover { filter: brightness(1.02); }
-    button:active { transform: scale(0.98); }
+    button:active{ transform: scale(.98); }
+    button:hover{ filter: brightness(1.02); }
 
-    #yesBtn { background:#2f7dff; color:white; }
-    #noBtn { background:#f1f1f1; color:#222; }
+    #yesBtn{ background:#2f7dff; color:white; }
+    #noBtn{ background:#f2f2f2; color:#222; }
 
-    #msg { margin-top: 12px; min-height: 24px; color:#c4002b; font-weight: 800; }
-
-    #happy { display:none; margin-top: 14px; }
-    img {
-      width: min(360px, 90%);
-      border-radius: 16px;
-      box-shadow: 0 10px 26px rgba(0,0,0,.14);
+    #msg{
+      margin-top: 14px;
+      min-height: 26px;
+      color:#c4002b;
+      font-weight:900;
+      font-size:16px;
     }
-    .final {
-      margin-top: 10px;
-      font-weight: 800;
-      color: #0b3d91;
-      font-size: 18px;
-    }
-  </style>
-</head>
 
-<body>
-  <div class="confetti"></div>
-
-  <div class="card">
-    <div class="badge">Final question 💌</div>
-
-    <h1>Will you be my Valentine? 💘</h1>
-    <p>No pressure. (Okay tiny pressure.) 😄</p>
-
-    <div class="row">
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
-    </div>
-
-    <div id="msg"></div>
-
-    <div id="happy">
-      <!-- Funny/cute dancing man GIF (you can swap this URL anytime) -->
-      <img
-        src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif"
-        alt="Dancing happy man"
-      />
-      <div class="final">Thank you for making me the luckiest man in the world ❤️</div>
-    </div>
-  </div>
-
-  <script>
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
-    const msg = document.getElementById("msg");
-    const happy = document.getElementById("happy");
-
-    // NO = show “answer not accepted”
-    noBtn.addEventListener("click", () => {
-      msg.textContent = "Answer not accepted 😤";
-      happy.style.display = "none";
-    });
-
-    // YES = show GIF + final message
-    yesBtn.addEventListener("click", () => {
-      msg.textContent = "";
-      happy.style.display = "block";
-    });
-  </script>
-</body>
-</html>
-
+    #happy{
+      display:none;
+      m
