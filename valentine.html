@@ -5,23 +5,111 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Valentine?</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: Arial, sans-serif; display:flex; min-height:100vh; align-items:center; justify-content:center; background:#f7fbff; }
-    .card { background:white; padding:28px; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,.08); width:min(520px, 92vw); text-align:center; }
-    h1 { margin:0 0 14px; font-size:22px; }
-    .row { display:flex; gap:12px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
-    button { border:0; padding:12px 18px; border-radius:12px; font-size:16px; cursor:pointer; }
+    body {
+      font-family: "Quicksand", Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(47,125,255,.18), transparent 38%),
+        radial-gradient(circle at 85% 25%, rgba(255,59,122,.18), transparent 38%),
+        radial-gradient(circle at 45% 90%, rgba(255,220,235,.45), transparent 48%),
+        #f7fbff;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .25;
+      background-image:
+        radial-gradient(circle, rgba(255,59,122,.8) 2px, transparent 3px),
+        radial-gradient(circle, rgba(47,125,255,.8) 2px, transparent 3px),
+        radial-gradient(circle, rgba(255,180,0,.8) 2px, transparent 3px);
+      background-size: 140px 140px, 180px 180px, 220px 220px;
+      animation: drift 10s linear infinite;
+    }
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to   { transform: translateY(60px); }
+    }
+
+    .card {
+      width: min(560px, 92vw);
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.7);
+      padding: 28px;
+      border-radius: 22px;
+      box-shadow: 0 18px 45px rgba(0,0,0,.10);
+      text-align: center;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(47,125,255,.12);
+      color: #0b3d91;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h1 { margin: 6px 0 10px; font-size: 24px; color:#1a1a1a; }
+    p { margin: 0 0 16px; color:#444; }
+
+    .row { display:flex; gap:12px; justify-content:center; margin-top: 10px; flex-wrap:wrap; }
+
+    button {
+      border: 0;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 10px 20px rgba(0,0,0,.10);
+      transition: transform .08s ease, filter .15s ease;
+    }
+    button:hover { filter: brightness(1.02); }
+    button:active { transform: scale(0.98); }
+
     #yesBtn { background:#2f7dff; color:white; }
-    #noBtn { background:#eee; }
-    #msg { margin-top:14px; color:#c4002b; min-height:22px; font-weight:700; }
-    #happy { display:none; margin-top:16px; }
-    img { width:min(360px, 90%); border-radius:14px; box-shadow:0 8px 22px rgba(0,0,0,.12); }
-    .final { margin-top:10px; font-weight:800; color:#0b3d91; }
+    #noBtn { background:#f1f1f1; color:#222; }
+
+    #msg { margin-top: 12px; min-height: 24px; color:#c4002b; font-weight: 800; }
+
+    #happy { display:none; margin-top: 14px; }
+    img {
+      width: min(360px, 90%);
+      border-radius: 16px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.14);
+    }
+    .final {
+      margin-top: 10px;
+      font-weight: 800;
+      color: #0b3d91;
+      font-size: 18px;
+    }
   </style>
 </head>
+
 <body>
+  <div class="confetti"></div>
+
   <div class="card">
-    <h1>Will you be my Valentine? 💌</h1>
+    <div class="badge">Final question 💌</div>
+
+    <h1>Will you be my Valentine? 💘</h1>
+    <p>No pressure. (Okay tiny pressure.) 😄</p>
 
     <div class="row">
       <button id="yesBtn">Yes</button>
@@ -31,10 +119,10 @@
     <div id="msg"></div>
 
     <div id="happy">
-      <!-- Replace the GIF URL with any you like -->
+      <!-- Funny/cute dancing man GIF (you can swap this URL anytime) -->
       <img
-        src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
-        alt="Happy GIF"
+        src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif"
+        alt="Dancing happy man"
       />
       <div class="final">Thank you for making me the luckiest man in the world ❤️</div>
     </div>
@@ -46,11 +134,13 @@
     const msg = document.getElementById("msg");
     const happy = document.getElementById("happy");
 
+    // NO = show “answer not accepted”
     noBtn.addEventListener("click", () => {
       msg.textContent = "Answer not accepted 😤";
       happy.style.display = "none";
     });
 
+    // YES = show GIF + final message
     yesBtn.addEventListener("click", () => {
       msg.textContent = "";
       happy.style.display = "block";
@@ -58,3 +148,4 @@
   </script>
 </body>
 </html>
+
