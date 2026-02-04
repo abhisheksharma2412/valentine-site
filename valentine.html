@@ -6,13 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Valentine?</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-
   <style>
     body{
-      font-family:"Quicksand", Arial, sans-serif;
+      font-family: Arial, sans-serif;
       min-height:100vh; margin:0;
       display:grid; place-items:center;
       background:
@@ -23,26 +19,23 @@
       overflow:hidden;
     }
 
-    .sparkle{
-      position:fixed; inset:0;
+    .heart{
+      position: fixed;
+      bottom:-40px;
+      font-size:20px;
+      opacity:.18;
+      animation: floatUp linear infinite;
+      user-select:none;
       pointer-events:none;
-      opacity:.22;
-      background-image:
-        radial-gradient(circle, rgba(255,59,122,.85) 2px, transparent 3px),
-        radial-gradient(circle, rgba(47,125,255,.85) 2px, transparent 3px),
-        radial-gradient(circle, rgba(255,180,0,.85) 2px, transparent 3px);
-      background-size: 140px 140px, 190px 190px, 240px 240px;
-      animation: drift 10s linear infinite;
     }
-    @keyframes drift{
-      from{ transform: translateY(0); }
-      to{ transform: translateY(70px); }
+    @keyframes floatUp{
+      from { transform: translateY(0) translateX(0) rotate(0deg); }
+      to   { transform: translateY(-120vh) translateX(50px) rotate(25deg); }
     }
 
     .card{
       width:min(680px, 92vw);
-      background: rgba(255,255,255,.88);
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,.90);
       border:1px solid rgba(255,255,255,.75);
       padding: 34px 28px;
       border-radius: 26px;
@@ -56,7 +49,7 @@
       border-radius:999px;
       background: rgba(47,125,255,.12);
       color:#0b3d91;
-      font-weight:900;
+      font-weight:800;
       margin-bottom:14px;
     }
 
@@ -136,7 +129,12 @@
 </head>
 
 <body>
-  <div class="sparkle"></div>
+  <!-- Decorative hearts -->
+  <div class="heart" style="left: 10%; animation-duration: 11s;">💗</div>
+  <div class="heart" style="left: 24%; animation-duration: 13s;">💖</div>
+  <div class="heart" style="left: 58%; animation-duration: 10s;">💘</div>
+  <div class="heart" style="left: 78%; animation-duration: 14s;">💞</div>
+  <div class="heart" style="left: 90%; animation-duration: 9s;">💓</div>
 
   <div class="card">
     <div class="badge">Final question 💌</div>
@@ -179,3 +177,4 @@
   </script>
 </body>
 </html>
+
