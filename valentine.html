@@ -107,4 +107,75 @@
 
     #happy{
       display:none;
-      m
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(47,125,255,.14), rgba(255,59,122,.14));
+      border: 1px solid rgba(0,0,0,.08);
+      animation: popIn .35s ease;
+    }
+
+    @keyframes popIn{
+      from { transform: scale(.92); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    img{
+      width:min(380px, 92%);
+      border-radius:18px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.14);
+    }
+
+    .final{
+      margin-top: 12px;
+      font-weight: 900;
+      color:#0b3d91;
+      font-size:20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sparkle"></div>
+
+  <div class="card">
+    <div class="badge">Final question 💌</div>
+
+    <h1>Will you be my Valentine? 💘</h1>
+    <div class="sub">No pressure. (Okay tiny pressure.) 😄</div>
+
+    <div class="row">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+
+    <div id="msg"></div>
+
+    <div id="happy">
+      <!-- Funny/cute dancing man GIF -->
+      <img
+        src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif"
+        alt="Happy dancing man"
+      />
+      <div class="final">Thank you for making me the luckiest man in the world ❤️</div>
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const msg = document.getElementById("msg");
+    const happy = document.getElementById("happy");
+
+    noBtn.addEventListener("click", () => {
+      msg.textContent = "Answer not accepted 😤";
+      happy.style.display = "none";
+    });
+
+    yesBtn.addEventListener("click", () => {
+      msg.textContent = "";
+      happy.style.display = "block";
+    });
+  </script>
+</body>
+</html>
